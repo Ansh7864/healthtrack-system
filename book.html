@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Book Appointment | HealthTrack</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    label {
+      font-weight: bold;
+    }
+    input, select, button {
+      padding: 8px;
+      font-size: 1rem;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #007acc;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #005f99;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>HealthTrack</h1>
+    <p>Your trusted partner in managing appointments and prescriptions</p>
+  </header>
+  <nav>
+    <a href="register.html">Register</a>
+    <a href="login.html">Login</a>
+    <a href="book.html">Book Appointment</a>
+    <a href="appointments.html">View Appointments</a>
+    <a href="prescriptions.html">Prescriptions</a>
+  </nav>
+  <main>
+    <section class="card">
+      <h2>Book Appointment</h2>
+      <form id="appointmentForm">
+        <label for="name">Patient Name:</label>
+        <input type="text" id="name" required />
+
+        <label for="doctor">Select Doctor:</label>
+        <select id="doctor" required>
+          <option value="">-- Choose Doctor --</option>
+          <option>Dr. A. Sharma (Cardiologist)</option>
+          <option>Dr. R. Mehta (Dermatologist)</option>
+          <option>Dr. S. Rao (Pediatrician)</option>
+        </select>
+
+        <label for="date">Select Date:</label>
+        <input type="date" id="date" required />
+
+        <label for="time">Select Time:</label>
+        <input type="time" id="time" required />
+
+        <button type="submit">Book Appointment</button>
+      </form>
+    </section>
+  </main>
+  <footer>
+    &copy; 2025 HealthTrack System
+  </footer>
+
+  <script>
+    const form = document.getElementById("appointmentForm");
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      const name = document.getElementById("name").value;
+      const doctor = document.getElementById("doctor").value;
+      const date = document.getElementById("date").value;
+      const time = document.getElementById("time").value;
+
+      const appointment = {
+        name,
+        doctor,
+        date,
+        time,
+        status: "Confirmed"
+      };
+
+      let appointments = JSON.parse(localStorage.getItem("appointments")) || [];
+      appointments.push(appointment);
+      localStorage.setItem("appointments", JSON.stringify(appointments));
+
+      alert("Appointment booked!");
+      form.reset();
+    });
+  </script>
+</body>
+</html>
